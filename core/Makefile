@@ -1658,6 +1658,13 @@ VALIDUS_TARGET_PACKAGE := $(PRODUCT_OUT)/Validus-$(VALIDUS_VERSION).zip
 
 .PHONY: otapackage validus bootzip
 otapackage: $(INTERNAL_OTA_PACKAGE_TARGET)
+
+bootzip: bootimage
+	$(BOOT_ZIP_FROM_IMAGE_SCRIPT) \
+	   $(recovery_fstab) \
+	   $(OUT) \
+	   $(TARGET_DEVICE)
+
 validus: otapackage
 	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(VALIDUS_TARGET_PACKAGE)
 	$(hide) $(MD5SUM) $(VALIDUS_TARGET_PACKAGE) > $(VALIDUS_TARGET_PACKAGE).md5sum
@@ -1676,6 +1683,13 @@ validus: otapackage
 	@echo -e ${CL_MAG}""
 	@echo -e ""${CL_RST}
 	@echo -e ${CL_BLU}"Package Complete: $(VALIDUS_TARGET_PACKAGE)"${CL_MAG}
+
+ifeq ($(USE_PREBUILT_CHROMIUM),1)
+ifneq ($(PRODUCT_PREBUILT_WEBVIEWCHROMIUM),yes)
+	@echo "Running Chromium prebuilt setup script..."
+	$(hide) . $(TOPDIR)vendor/liquid/utils/chromium_prebuilt.sh $(TOP)
+endif
+endif
 
 ifeq ($(VALIDUS_CHANGELOG),true)
 # Generate changelog
