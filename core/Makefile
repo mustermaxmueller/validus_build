@@ -1631,12 +1631,8 @@ else
     $(INTERNAL_OTA_PACKAGE_TARGET): override_device := $(TARGET_OTA_ASSERT_DEVICE)
 endif
 
-ifneq ($(TARGET_UNIFIED_DEVICE),)
-    $(INTERNAL_OTA_PACKAGE_TARGET): override_prop := --override_prop=true
-    ifeq ($(TARGET_OTA_ASSERT_DEVICE),)
-        $(INTERNAL_OTA_PACKAGE_TARGET): override_device := $(TARGET_DEVICE)
-    endif
-endif
+BOOT_ZIP_FROM_IMAGE_SCRIPT := ./build/tools/releasetools/boot_flash_from_image
+KERNEL_PATH := $(TARGET_KERNEL_SOURCE)/arch/arm/configs/$(TARGET_KERNEL_CONFIG)
 
 $(INTERNAL_OTA_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE) $(DISTTOOLS)
 	@echo "$(OTA_FROM_TARGET_SCRIPT)" > $(PRODUCT_OUT)/ota_script_path
@@ -1654,7 +1650,7 @@ $(INTERNAL_OTA_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE) $(DISTTOOLS)
 
 VALIDUS_TARGET_PACKAGE := $(PRODUCT_OUT)/Validus-$(VALIDUS_VERSION).zip
 
-.PHONY: otapackage validus
+.PHONY: otapackage validus bootzip
 otapackage: $(INTERNAL_OTA_PACKAGE_TARGET)
 validus: otapackage
 	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(VALIDUS_TARGET_PACKAGE)
