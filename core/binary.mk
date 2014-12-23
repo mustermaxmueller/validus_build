@@ -97,7 +97,7 @@ else
   endif
 endif
 
-ifeq ($(LIQUIFY),true)
+ifeq ($(SYMMETRY),true)
 include $(BUILD_SYSTEM)/graphite.mk
 endif
 
