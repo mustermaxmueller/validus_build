@@ -226,7 +226,7 @@ ifneq ($(PRODUCTS.$(INTERNAL_PRODUCT).PRODUCT_OEM_PROPERTIES),)
 endif
 	$(hide) TARGET_BUILD_TYPE="$(TARGET_BUILD_VARIANT)" \
 			TARGET_DEVICE="$(TARGET_VENDOR_DEVICE_NAME)" \
-			CM_DEVICE="$(TARGET_DEVICE)" \
+			VALIDUS_DEVICE="$(TARGET_DEVICE)" \
 			PRODUCT_NAME="$(TARGET_VENDOR_PRODUCT_NAME)" \
 			PRODUCT_BRAND="$(PRODUCT_BRAND)" \
 			PRODUCT_DEFAULT_LANGUAGE="$(call default-locale-language,$(PRODUCT_LOCALES))" \
@@ -879,8 +879,8 @@ ifneq ($(OTA_PACKAGE_SIGNING_KEY),)
     PRODUCT_EXTRA_RECOVERY_KEYS := $(DEFAULT_SYSTEM_DEV_CERTIFICATE)
 else
     PRODUCT_EXTRA_RECOVERY_KEYS += \
-        build/target/product/security/cm \
-        build/target/product/security/cm-devkey \
+        build/target/product/security/validus \
+        build/target/product/security/validus-devkey \
         build/target/product/security/bacon
 endif
 
@@ -1618,7 +1618,7 @@ endif
 ifeq ($(WITH_GMS),true)
     $(INTERNAL_OTA_PACKAGE_TARGET): backuptool := false
 else
-ifneq ($(CM_BUILD),)
+ifneq ($(VALIDUS_BUILD),)
     $(INTERNAL_OTA_PACKAGE_TARGET): backuptool := true
 else
     $(INTERNAL_OTA_PACKAGE_TARGET): backuptool := false
@@ -1652,14 +1652,28 @@ $(INTERNAL_OTA_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE) $(DISTTOOLS)
 	   $(if $(OEM_OTA_CONFIG), -o $(OEM_OTA_CONFIG)) \
 	   $(BUILT_TARGET_FILES_PACKAGE) $@
 
-CM_TARGET_PACKAGE := $(PRODUCT_OUT)/cm-$(CM_VERSION).zip
+VALIDUS_TARGET_PACKAGE := $(PRODUCT_OUT)/Validus-$(VALIDUS_VERSION).zip
 
-.PHONY: otapackage bacon
+.PHONY: otapackage validus
 otapackage: $(INTERNAL_OTA_PACKAGE_TARGET)
-bacon: otapackage
-	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(CM_TARGET_PACKAGE)
-	$(hide) $(MD5SUM) $(CM_TARGET_PACKAGE) > $(CM_TARGET_PACKAGE).md5sum
-	@echo -e ${CL_CYN}"Package Complete: $(CM_TARGET_PACKAGE)"${CL_RST}
+validus: otapackage
+	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(VALIDUS_TARGET_PACKAGE)
+	$(hide) $(MD5SUM) $(VALIDUS_TARGET_PACKAGE) > $(VALIDUS_TARGET_PACKAGE).md5sum
+	@echo -e ${CL_MAG}""
+	@echo -e ""
+	@echo -e ${CL_MAG}" ██▒   █▓ ▄▄▄       ██▓     ██▓▓█████▄  █    ██   ██████ "
+	@echo -e ${CL_MAG}"▓██░   █▒▒████▄    ▓██▒    ▓██▒▒██▀ ██▌ ██  ▓██▒▒██    ▒ "
+	@echo -e ${CL_MAG}" ▓██  █▒░▒██  ▀█▄  ▒██░    ▒██▒░██   █▌▓██  ▒██░░ ▓██▄   "
+	@echo -e ${CL_MAG}"  ▒██ █░░░██▄▄▄▄██ ▒██░    ░██░░▓█▄   ▌▓▓█  ░██░  ▒   ██▒"
+	@echo -e ${CL_MAG}"   ▒▀█░   ▓█   ▓██▒░██████▒░██░░▒████▓ ▒▒█████▓ ▒██████▒▒"
+	@echo -e ${CL_MAG}"   ░ ▐░   ▒▒   ▓▒█░░ ▒░▓  ░░▓   ▒▒▓  ▒ ░▒▓▒ ▒ ▒ ▒ ▒▓▒ ▒ ░"
+	@echo -e ${CL_MAG}"   ░ ░░    ▒   ▒▒ ░░ ░ ▒  ░ ▒ ░ ░ ▒  ▒ ░░▒░ ░ ░ ░ ░▒  ░ ░"
+	@echo -e ${CL_MAG}"     ░░    ░   ▒     ░ ░    ▒ ░ ░ ░  ░  ░░░ ░ ░ ░  ░  ░  "
+	@echo -e ${CL_MAG}"      ░        ░  ░    ░  ░ ░     ░       ░           ░  "
+	@echo -e ${CL_MAG}"     ░                          ░                        "
+	@echo -e ${CL_MAG}""
+	@echo -e ""${CL_RST}
+	@echo -e ${CL_BLU}"Package Complete: $(VALIDUS_TARGET_PACKAGE)"${CL_MAG}
 
 endif    # recovery_fstab is defined
 endif    # TARGET_NO_KERNEL != true
