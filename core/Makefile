@@ -1671,6 +1671,12 @@ validus: otapackage
 	@echo -e ""${CL_RST}
 	@echo -e ${CL_BLU}"Package Complete: $(VALIDUS_TARGET_PACKAGE)"${CL_MAG}
 
+ifeq ($(VALIDUS_CHANGELOG),true)
+# Generate changelog
+	$(hide) ./vendor/validus/tools/changelog
+	$(hide) mv $(PRODUCT_OUT)/Changelog.txt $(PRODUCT_OUT)/$(VALIDUS_VERSION)-$(TARGET_PRODUCT).txt
+endif
+	
 endif    # recovery_fstab is defined
 endif    # TARGET_NO_KERNEL != true
 endif    # TARGET_DEVICE != generic*
