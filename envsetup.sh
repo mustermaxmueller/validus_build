@@ -2018,7 +2018,7 @@ function cmka() {
     if [ ! -z "$1" ]; then
         for i in "$@"; do
             case $i in
-                bacon|otapackage|systemimage)
+                validus|otapackage|systemimage)
                     mka installclean
                     mka $i
                     ;;
