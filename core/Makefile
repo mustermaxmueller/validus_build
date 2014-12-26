@@ -1675,21 +1675,21 @@ bootzip: bootimage
 validus: otapackage
 	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(VALIDUS_TARGET_PACKAGE)
 	$(hide) $(MD5SUM) $(VALIDUS_TARGET_PACKAGE) > $(VALIDUS_TARGET_PACKAGE).md5sum
-	@echo -e ${CL_MAG}""
+	@echo -e ${CL_RED}""
 	@echo -e ""
-	@echo -e ${CL_MAG}" ██▒   █▓ ▄▄▄       ██▓     ██▓▓█████▄  █    ██   ██████ "
-	@echo -e ${CL_MAG}"▓██░   █▒▒████▄    ▓██▒    ▓██▒▒██▀ ██▌ ██  ▓██▒▒██    ▒ "
-	@echo -e ${CL_MAG}" ▓██  █▒░▒██  ▀█▄  ▒██░    ▒██▒░██   █▌▓██  ▒██░░ ▓██▄   "
-	@echo -e ${CL_MAG}"  ▒██ █░░░██▄▄▄▄██ ▒██░    ░██░░▓█▄   ▌▓▓█  ░██░  ▒   ██▒"
-	@echo -e ${CL_MAG}"   ▒▀█░   ▓█   ▓██▒░██████▒░██░░▒████▓ ▒▒█████▓ ▒██████▒▒"
-	@echo -e ${CL_MAG}"   ░ ▐░   ▒▒   ▓▒█░░ ▒░▓  ░░▓   ▒▒▓  ▒ ░▒▓▒ ▒ ▒ ▒ ▒▓▒ ▒ ░"
-	@echo -e ${CL_MAG}"   ░ ░░    ▒   ▒▒ ░░ ░ ▒  ░ ▒ ░ ░ ▒  ▒ ░░▒░ ░ ░ ░ ░▒  ░ ░"
-	@echo -e ${CL_MAG}"     ░░    ░   ▒     ░ ░    ▒ ░ ░ ░  ░  ░░░ ░ ░ ░  ░  ░  "
-	@echo -e ${CL_MAG}"      ░        ░  ░    ░  ░ ░     ░       ░           ░  "
-	@echo -e ${CL_MAG}"     ░                          ░                        "
-	@echo -e ${CL_MAG}""
+	@echo -e ${CL_RED}" ██▒   █▓ ▄▄▄       ██▓     ██▓▓█████▄  █    ██   ██████ "
+	@echo -e ${CL_RED}"▓██░   █▒▒████▄    ▓██▒    ▓██▒▒██▀ ██▌ ██  ▓██▒▒██    ▒ "
+	@echo -e ${CL_RED}" ▓██  █▒░▒██  ▀█▄  ▒██░    ▒██▒░██   █▌▓██  ▒██░░ ▓██▄   "
+	@echo -e ${CL_RED}"  ▒██ █░░░██▄▄▄▄██ ▒██░    ░██░░▓█▄   ▌▓▓█  ░██░  ▒   ██▒"
+	@echo -e ${CL_RED}"   ▒▀█░   ▓█   ▓██▒░██████▒░██░░▒████▓ ▒▒█████▓ ▒██████▒▒"
+	@echo -e ${CL_RED}"   ░ ▐░   ▒▒   ▓▒█░░ ▒░▓  ░░▓   ▒▒▓  ▒ ░▒▓▒ ▒ ▒ ▒ ▒▓▒ ▒ ░"
+	@echo -e ${CL_RED}"   ░ ░░    ▒   ▒▒ ░░ ░ ▒  ░ ▒ ░ ░ ▒  ▒ ░░▒░ ░ ░ ░ ░▒  ░ ░"
+	@echo -e ${CL_RED}"     ░░    ░   ▒     ░ ░    ▒ ░ ░ ░  ░  ░░░ ░ ░ ░  ░  ░  "
+	@echo -e ${CL_RED}"      ░        ░  ░    ░  ░ ░     ░       ░           ░  "
+	@echo -e ${CL_RED}"     ░                          ░                        "
+	@echo -e ${CL_RED}""
 	@echo -e ""${CL_RST}
-	@echo -e ${CL_BLU}"Package Complete: $(VALIDUS_TARGET_PACKAGE)"${CL_MAG}
+	@echo -e ${CL_CYN}"Package Complete: $(VALIDUS_TARGET_PACKAGE)"${CL_RED}
 
 ifeq ($(USE_PREBUILT_CHROMIUM),1)
 ifneq ($(PRODUCT_PREBUILT_WEBVIEWCHROMIUM),yes)
