@@ -14,6 +14,7 @@
 #
 
 LOCAL_DISABLE_STRICT := \
+	libmtdutils \
 	libstlport_static \
 	libdl \
 	libc_common \
