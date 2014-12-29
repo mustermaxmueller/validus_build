@@ -14,7 +14,7 @@
 #
 
 LOCAL_DISABLE_STRICT := \
-	inputmethods \
+	libwnndict \
 	libxml2 \
 	busybox \
 	libbusybox \
