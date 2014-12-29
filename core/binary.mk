@@ -97,8 +97,31 @@ else
   endif
 endif
 
-ifeq ($(SYMMETRY),true)
+# Copyright (C) 2014 The SaberMod Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# Include custom gcc flags.  Seperate them so they can be easily managed.
+ifeq ($(GRAPHITE_OPTS),true)
+ifndef LOCAL_IS_HOST_MODULE
+ifeq ($(LOCAL_CLANG),)
 include $(BUILD_SYSTEM)/graphite.mk
+endif
+endif
+endif
+
+ifeq ($(STRICT_ALIASING),true)
+include $(BUILD_SYSTEM)/strict.mk
 endif
 
 # The following LOCAL_ variables will be modified in this file.
