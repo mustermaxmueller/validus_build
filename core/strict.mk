@@ -14,6 +14,7 @@
 #
 
 LOCAL_DISABLE_STRICT := \
+	busybox \
 	libbusybox \
 	libfuse \
 	libmtdutils \
