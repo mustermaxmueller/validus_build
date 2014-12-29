@@ -14,6 +14,7 @@
 #
 
 LOCAL_DISABLE_STRICT := \
+	tinyxml \
 	camera.msm8084 \
 	hwcomposer.msm8084 \
 	bionic \
