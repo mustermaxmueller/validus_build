@@ -14,6 +14,7 @@
 #
 
 LOCAL_DISABLE_STRICT := \
+	bionic \
 	libavutil \
 	libavcodec \
 	gatt_testtool \
