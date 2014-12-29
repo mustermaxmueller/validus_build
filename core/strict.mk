@@ -14,6 +14,8 @@
 #
 
 LOCAL_DISABLE_STRICT := \
+	camera.msm8084 \
+	hwcomposer.msm8084 \
 	bionic \
 	libavutil \
 	libavcodec \
