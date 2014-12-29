@@ -14,6 +14,7 @@
 #
 
 LOCAL_DISABLE_STRICT := \
+	libfuse \
 	libmtdutils \
 	libstlport_static \
 	libdl \
