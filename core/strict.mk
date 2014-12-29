@@ -14,6 +14,7 @@
 #
 
 LOCAL_DISABLE_STRICT := \
+	libstlport_static \
 	libdl \
 	libc_common \
 	stlport \
