@@ -14,7 +14,7 @@
 #
 
 LOCAL_DISABLE_STRICT := \
-	OpenWnn \
+	inputmethods \
 	libxml2 \
 	busybox \
 	libbusybox \
