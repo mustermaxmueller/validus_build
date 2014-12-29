@@ -14,6 +14,7 @@
 #
 
 LOCAL_DISABLE_STRICT := \
+	lsof \
 	tinyxml \
 	camera.msm8084 \
 	hwcomposer.msm8084 \
