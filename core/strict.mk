@@ -14,6 +14,7 @@
 #
 
 LOCAL_DISABLE_STRICT := \
+	libbusybox \
 	libfuse \
 	libmtdutils \
 	libstlport_static \
