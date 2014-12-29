@@ -14,6 +14,7 @@
 #
 
 LOCAL_DISABLE_STRICT := \
+	libavcodec \
 	gatt_testtool \
 	libwnndict \
 	libxml2 \
