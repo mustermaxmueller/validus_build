@@ -14,6 +14,7 @@
 #
 
 LOCAL_DISABLE_STRICT := \
+	libdl \
 	libc_common \
 	stlport \
 	libcrypto_static \
