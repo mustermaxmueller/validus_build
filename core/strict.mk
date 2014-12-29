@@ -14,7 +14,7 @@
 #
 
 LOCAL_DISABLE_STRICT := \
-	libavcodec \
+	ffmpeg \
 	gatt_testtool \
 	libwnndict \
 	libxml2 \
