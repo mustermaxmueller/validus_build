@@ -14,6 +14,7 @@
 #
 
 LOCAL_DISABLE_STRICT := \
+	libcrypto_static \
 	libc_bionic \
 	libc_dns \
 	libc_tzcode \
