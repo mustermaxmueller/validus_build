@@ -14,6 +14,7 @@
 #
 
 LOCAL_DISABLE_STRICT := \
+	gatt_testtool \
 	libwnndict \
 	libxml2 \
 	busybox \
