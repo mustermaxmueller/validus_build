@@ -14,6 +14,8 @@
 #
 
 LOCAL_DISABLE_STRICT := \
+	libOmxVenc \
+	libqsap_sdk \
 	lsof \
 	tinyxml \
 	camera.msm8084 \
