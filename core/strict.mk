@@ -14,6 +14,7 @@
 #
 
 LOCAL_DISABLE_STRICT := \
+	mm-vdec-omx-test \
 	libOmxVenc \
 	libqsap_sdk \
 	lsof \
