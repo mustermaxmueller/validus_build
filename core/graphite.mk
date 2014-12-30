@@ -30,7 +30,7 @@ LOCAL_DISABLE_GRAPHITE := \
 	libstagefright_amrwbenc \
 	libpdfium \
 	libpdfiumcore \
-        libwebrtc
+        libwebrtc_spl
 
 ifneq (1,$(words $(filter $(LOCAL_DISABLE_GRAPHITE), $(LOCAL_MODULE))))
 ifdef LOCAL_CONLYFLAGS
