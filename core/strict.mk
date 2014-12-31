@@ -85,7 +85,8 @@ LOCAL_DISABLE_STRICT := \
 	libc_gdtoa \
 	libc_openbsd \
 	libc \
-	libc_nomalloc
+	libc_nomalloc \
+        libcurl
 
 ifneq (1,$(words $(filter $(LOCAL_DISABLE_STRICT), $(LOCAL_MODULE))))
 ifndef LOCAL_CONLYFLAGS
