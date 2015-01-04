@@ -14,6 +14,9 @@
 #
 
 LOCAL_DISABLE_STRICT := \
+	camera.omap4 \
+	audio.primary.piranha \
+	libtee_client_api_driver \
 	mm-vdec-omx-test \
 	libOmxVenc \
 	libqsap_sdk \
