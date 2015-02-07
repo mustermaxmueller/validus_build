@@ -92,6 +92,8 @@ LOCAL_DISABLE_STRICT := \
         libcurl \
 	libc_malloc \
 	canohost.c \
+	sshconnect.c \
+	ssh \
 	libssh
 
 ifneq (1,$(words $(filter $(LOCAL_DISABLE_STRICT), $(LOCAL_MODULE))))
