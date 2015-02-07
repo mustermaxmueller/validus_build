@@ -91,7 +91,8 @@ LOCAL_DISABLE_STRICT := \
 	libc_nomalloc \
         libcurl \
 	libc_malloc \
-	openssh
+	canohost.c \
+	libssh
 
 ifneq (1,$(words $(filter $(LOCAL_DISABLE_STRICT), $(LOCAL_MODULE))))
 ifndef LOCAL_CONLYFLAGS
