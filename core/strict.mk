@@ -94,7 +94,8 @@ LOCAL_DISABLE_STRICT := \
 	canohost.c \
 	sshconnect.c \
 	ssh \
-	libssh
+	libssh \
+	audio.primary.msm8960
 
 ifneq (1,$(words $(filter $(LOCAL_DISABLE_STRICT), $(LOCAL_MODULE))))
 ifndef LOCAL_CONLYFLAGS
