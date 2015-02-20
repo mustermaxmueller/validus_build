@@ -15,6 +15,7 @@ DONT_USE_CLANG_QCOM_MODULES := \
   libc++ \
   libc++abi
 
+
 #modules for language mode c++11 doesnt work :(
 CLANG_QCOM_C11 := \
   libjni_latinime_common_static \
