@@ -120,8 +120,24 @@ endif
 endif
 endif
 
+ifeq ($(KRAIT_TUNINGS),true)
+ifndef LOCAL_IS_HOST_MODULE
+include $(BUILD_SYSTEM)/krait.mk
+endif
+endif
+
 ifeq ($(STRICT_ALIASING),true)
 include $(BUILD_SYSTEM)/strict.mk
+endif
+
+
+#force use CLANG_QCOM for selected MODULES
+ifeq ($(USE_CLANG_QCOM),true)
+  ifndef LOCAL_IS_HOST_MODULE
+    ifeq ($(LOCAL_MODULE),$(filter $(LOCAL_MODULE),$(CLANG_QCOM_MODULES)))
+      LOCAL_CLANG := true
+    endif
+  endif
 endif
 
 # The following LOCAL_ variables will be modified in this file.
@@ -271,9 +287,9 @@ my_target_global_cflags := $($(LOCAL_2ND_ARCH_VAR_PREFIX)CLANG_TARGET_GLOBAL_CFL
 my_target_global_cppflags += $($(LOCAL_2ND_ARCH_VAR_PREFIX)CLANG_TARGET_GLOBAL_CPPFLAGS)
 my_target_global_ldflags := $($(LOCAL_2ND_ARCH_VAR_PREFIX)CLANG_TARGET_GLOBAL_LDFLAGS)
 my_target_c_includes += $(CLANG_CONFIG_EXTRA_TARGET_C_INCLUDES)
-  ifeq ($(USE_CLANG_QCOM),true)
-    include $(BUILD_SYSTEM)/clang/clang_qcom.mk
-  endif
+ifeq ($(USE_CLANG_QCOM),true)
+  include $(BUILD_SYSTEM)/clang/clang_qcom.mk
+endif
 else
 my_target_global_cflags := $($(LOCAL_2ND_ARCH_VAR_PREFIX)TARGET_GLOBAL_CFLAGS)
 my_target_global_cppflags += $($(LOCAL_2ND_ARCH_VAR_PREFIX)TARGET_GLOBAL_CPPFLAGS)

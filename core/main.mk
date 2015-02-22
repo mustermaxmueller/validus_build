@@ -1105,6 +1105,7 @@ clobber: clean
 .PHONY: novo
 novo:
 	@rm -rf $(OUT_DIR)/target/*
+	@rm -rf $(CCACHE_DIR)/*
 	@echo -e ${CL_GRN}"Target directory removed."${CL_RST}
 	
 # This is one step better then novo, only clearing target/product

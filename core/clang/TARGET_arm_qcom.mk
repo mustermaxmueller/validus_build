@@ -5,18 +5,21 @@ LLVM_PREBUILTS_HEADER_PATH_QCOM := $(LLVM_PREBUILTS_PATH_QCOM)/../lib/clang/3.5.
 CLANG_QCOM := $(LLVM_PREBUILTS_PATH_QCOM)/clang
 CLANG_QCOM_CXX := $(LLVM_PREBUILTS_PATH_QCOM)/clang++
 
+LLVM_AS := $(LLVM_PREBUILTS_PATH_QCOM)/llvm-as
+LLVM_LINK := $(LLVM_PREBUILTS_PATH_QCOM)/llvm-link
+
 CLANG_QCOM_CONFIG_EXTRA_TARGET_C_INCLUDES := $(LLVM_PREBUILTS_HEADER_PATH_QCOM)
 
-#COMPILER_RT_CONFIG_EXTRA_STATIC_LIBRARIES := libcompiler_rt-extras libclang_rt.optlibc-krait2 libclang_rt.builtins-arm_android libclang_rt.profile-armv7 libclang_rt.translib libclang_rt.translib32
+COMPILER_RT_CONFIG_EXTRA_STATIC_LIBRARIES := libcompiler_rt-extras libclang_rt.optlibc-krait2 libclang_rt.builtins-arm_android libclang_rt.profile-armv7 libclang_rt.translib libclang_rt.translib32
 
 #when NOT to use CLANG_QCOM
-DONT_USE_CLANG_QCOM_MODULES := \
-  libcompiler_rt \
-  libc++ \
+DONT_USE_CLANG_QCOM_MODULES :=
+
+#https://android-review.googlesource.com/#/c/110170/
+DONT_USE_CLANG_QCOM_AS_MODULES := \
   libc++abi
 
-
-#modules for language mode c++11 doesnt work :(
+#modules for language mode c++11
 CLANG_QCOM_C11 := \
   libjni_latinime_common_static \
   libjni_latinime
@@ -31,30 +34,41 @@ CLANG_QCOM_CONFIG_EXTRA_LLVM_FLAGS := \
   -fcolor-diagnostics \
   -fstrict-aliasing \
   -fuse-ld=gold
-  # -Wno-unused-parameter -Wno-unused-variable -Wunused-but-set-variable
+  #-Wno-unused-parameter -Wno-unused-variable -Wunused-but-set-variable
 
 ifeq ($(TARGET_CPU_VARIANT),krait)
   mcpu_clang_qcom := -mcpu=krait2 -muse-optlibc
 else ifeq ($(TARGET_CPU_VARIANT),scorpion)
   mcpu_clang_qcom := -mcpu=scorpion
 else
-  $(info warning no supported cpu detected!!)
+ # $(info  )
+ # $(info QCOM_CLANG: warning no supported cpu detected. Only Krait and Scorpion supported!!)
+ # $(info  )
 endif
 
 
 #see documentation especialy 3.4.21 Math optimization. I hope we dont need that precision in Bionic although we likely will
 CLANG_QCOM_CONFIG_EXTRA_KRAIT_FLAGS := \
   -Ofast $(mcpu_clang_qcom) -mfpu=neon -mfloat-abi=softfp \
-  -mllvm -arm-opt-memcpy \
-  -fvectorize-loops \
   -fomit-frame-pointer \
   -ffast-math -ffinite-math-only \
-  -funsafe-math-optimizations
+  -fno-signed-zeros -fno-trapping-math \
+  -fassociative-math \
+  -freciprocal-math \
+  -funsafe-math-optimizations \
+  -mllvm -arm-opt-memcpy -arm-expand-memcpy-runtime
+  
 
 #TODO:
+#-fparallel where to use? see 3.6.4
 #-falign-os #only for -Os
-#-falign-functions -falign-labels -falign-loops #only for -Ofast
+#-falign-functions -falign-labels #only for -Ofast
 #-fdata-sections -finline-functions ?
+#-ffp-contract=fast maybe too dangerous?
+
+ifeq ($(USE_CLANG_QCOM_LTO),true)
+  #CLANG_QCOM_CONFIG_EXTRA_KRAIT_FLAGS += -c-lto -flto
+endif
 
 CLANG_QCOM_CONFIG_EXTRA_FLAGS := \
   -Qunused-arguments -Wno-unknown-warning-option -D__compiler_offsetof=__builtin_offsetof \
@@ -95,3 +109,5 @@ $(clang_2nd_arch_prefix)CLANG_QCOM_TARGET_GLOBAL_LDFLAGS := \
   $(call convert-to-clang-qcom-flags,$(TARGET_GLOBAL_LDFLAGS)) \
   $(CLANG_QCOM_CONFIG_arm_TARGET_EXTRA_LDFLAGS)
 
+CLANG_QCOM_MODULES := 
+  #use grep
