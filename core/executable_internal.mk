@@ -52,6 +52,16 @@ my_target_crtbegin_dynamic_o := $(wildcard $(my_ndk_sysroot_lib)/crtbegin_dynami
 my_target_crtbegin_static_o := $(wildcard $(my_ndk_sysroot_lib)/crtbegin_static.o)
 my_target_crtend_o := $(wildcard $(my_ndk_sysroot_lib)/crtend_android.o)
 endif
+
+ifeq ($(USE_CLANG_QCOM),true)
+  ifneq ($(filter libcompiler_rt-extras,$(my_static_libraries)),)
+    ifneq ($(LOCAL_MODULE),$(filter $(LOCAL_MODULE),$(CLANG_QCOM_NEED_LIBGCC_MODULES)))
+      #my_target_libgcc += $(COMPILER_RT_CONFIG_EXTRA_QCOM_OPT_LIBGCC)
+    endif
+    my_target_libgcc += $(COMPILER_RT_CONFIG_EXTRA_QCOM_OPT_LIBRARIES_LINK)
+  endif
+endif
+
 $(linked_module): PRIVATE_TARGET_GLOBAL_LD_DIRS := $(my_target_global_ld_dirs)
 $(linked_module): PRIVATE_TARGET_GLOBAL_LDFLAGS := $(my_target_global_ldflags)
 $(linked_module): PRIVATE_TARGET_LIBGCC := $(my_target_libgcc)

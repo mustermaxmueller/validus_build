@@ -24,7 +24,11 @@ CLANG_CONFIG_arm_UNKNOWN_CFLAGS := \
   -fno-align-jumps \
   -Wa,--noexecstack \
   -mvectorize-with-neon-quad \
-  -fno-if-conversion
+  -fno-if-conversion \
+  -fivopts \
+  -ftracer \
+  -fno-unswitch-loops \
+  -finline-functions
 
 define subst-clang-incompatible-arm-flags
   $(subst -march=armv5te,-march=armv5t,\
@@ -36,15 +40,25 @@ endef
 
 
 #CLANG QCOM
-define subst-clang-qcom-incompatible-arm-flags
-  $(subst -march=armv5te,-mcpu=krait2,\
-  $(subst -march=armv5e,-mcpu=krait2,\
-  $(subst -march=armv7,-mcpu=krait2,\
-  $(subst -march=armv7-a,-mcpu=krait2,\
-  $(subst -mcpu=cortex-a15,-mcpu=krait2,\
-  $(subst -mfpu=cortex-a8,-mcpu=scorpion,\
-  $(subst -mfpu=neon-vfpv3,-mfpu=neon,\
-  $(subst -mfpu=neon-vfpv4,-mfpu=neon,\
-  $(subst -O3,-Ofast,\
-  $(1))))))))))
+define subst-clang-qcom-incompatible-arm-ldflags
+  $(1)
 endef
+
+define subst-clang-qcom-incompatible-arm-flags
+  $(subst -march=armv5te,-mcpu=krait,\
+  $(subst -march=armv5e,-mcpu=krait,\
+  $(subst -march=armv7,-mcpu=krait,\
+  $(subst -march=armv7-a,-mcpu=krait,\
+  $(subst -mcpu=cortex-a15,-mcpu=krait,\
+  $(subst -mfpu=cortex-a8,-mcpu=scorpion,\
+  $(subst -O3,-Ofast -fno-fast-math,\
+  $(1))))))))
+endef
+
+define subst-clang-qcom-parallel-flags
+  $(subst -O2,-O2 -fparallel,\
+  $(subst -O3,-O3 -fparallel,\
+  $(subst -Ofast,-Ofast -fparallel,\
+  $(1))))
+endef
+
